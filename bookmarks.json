@@ -1,58 +1,119 @@
 {
     "categories": [
         {
-            "name": "Core Tools",
+            "name": "Rancher & SUSE Development",
             "bookmarks": [
                 {
-                    "title": "Search Engine",
-                    "url": "https://www.google.com",
-                    "description": "Primary search tool."
+                    "title": "Embargoed Security (GitHub)",
+                    "url": "https://github.com/rancherlabs/embargoed-security",
+                    "description": "Rancher Labs embargoed security issues."
                 },
                 {
-                    "title": "Code Repository",
-                    "url": "https://github.com",
-                    "description": "For all my projects."
+                    "title": "Rancher Security (GitHub)",
+                    "url": "https://github.com/rancherlabs/rancher-security",
+                    "description": "Public Rancher security information."
                 },
                 {
-                    "title": "Cloud Storage",
-                    "url": "https://www.dropbox.com",
-                    "description": "File synchronization."
+                    "title": "Rancher Projects (GitHub)",
+                    "url": "https://github.com/orgs/rancher/projects/49",
+                    "description": "Rancher organization projects board."
+                },
+                {
+                    "title": "Release Planning (Confluence)",
+                    "url": "https://confluence.suse.com/display/EN/Tentative+Release+Planning",
+                    "description": "SUSE tentative release planning documents."
+                },
+                {
+                    "title": "Rancher Validations & Testing (Confluence)",
+                    "url": "https://confluence.suse.com/display/RANQA/Setting+up+Rancher+for+Validations%2C+Release+Testing+and+Post-Release+Checks",
+                    "description": "Setting up Rancher for QA processes."
+                },
+                {
+                    "title": "Python to Golang Migration (Confluence)",
+                    "url": "https://confluence.suse.com/display/RANQA/Migration+of+Python+Tests+to+Golang+in+rancher-v3_additional_tests",
+                    "description": "Documentation on migrating tests from Python to Golang."
+                },
+                {
+                    "title": "RKE2 Release Notes (v1.32.X)",
+                    "url": "https://docs.rke2.io/release-notes/v1.32.X",
+                    "description": "Release notes for RKE2."
+                },
+                {
+                    "title": "K3s Release Notes (v1.32.X)",
+                    "url": "https://docs.k3s.io/release-notes/v1.32.X",
+                    "description": "Release notes for K3s."
                 }
             ]
         },
         {
-            "name": "Development",
+            "name": "QA & Testing Tools",
             "bookmarks": [
                 {
-                    "title": "MDN Web Docs",
-                    "url": "https://developer.mozilla.org/",
-                    "description": "Web development resources."
+                    "title": "Jenkins POC (Go Automation)",
+                    "url": "http://jenkinspoc.qa.rancher.space/job/rancher_qa/job/go-automation-freeform-job/",
+                    "description": "Jenkins proof-of-concept for Go automation jobs."
                 },
                 {
-                    "title": "Stack Overflow",
-                    "url": "https://stackoverflow.com",
-                    "description": "Q&A for programmers."
+                    "title": "GitHub QA Capacity Calculator",
+                    "url": "http://testqacal.qa.rancher.space/",
+                    "description": "Rancher QA capacity calculator."
+                },
+                {
+                    "title": "Qase (Test Management)",
+                    "url": "https://app.qase.io/login?redirectPath=%2Frun%2FRM%2Fdashboard%2F2484",
+                    "description": "Login for Qase test management platform."
                 }
             ]
         },
         {
-            "name": "Reading List",
+            "name": "AI & Language Models",
             "bookmarks": [
                 {
-                    "title": "TechCrunch",
-                    "url": "https://techcrunch.com",
-                    "description": "Startup and technology news."
+                    "title": "Ollama (GitHub)",
+                    "url": "https://github.com/ollama/ollama",
+                    "description": "Run large language models locally."
                 },
                 {
-                    "title": "Medium",
-                    "url": "https://medium.com",
-                    "description": "Articles and stories."
+                    "title": "ChatGPT",
+                    "url": "https://chatgpt.com/",
+                    "description": "OpenAI's ChatGPT."
+                },
+                {
+                    "title": "Claude AI",
+                    "url": "https://claude.ai/new",
+                    "description": "Anthropic's Claude AI."
+                },
+                {
+                    "title": "Google Gemini",
+                    "url": "https://gemini.google.com/app",
+                    "description": "Google's Gemini AI."
+                },
+                {
+                    "title": "ChatGPT Codex",
+                    "url": "https://chatgpt.com/codex?tab=all",
+                    "description": "ChatGPT for code generation and understanding."
                 }
             ]
         },
         {
-            "name": "Empty Category Example",
-            "bookmarks": []
+            "name": "Developer Platforms & Cloud",
+            "bookmarks": [
+                {
+                    "title": "Okta (SUSE)",
+                    "url": "https://suse.okta.com/app/UserHome",
+                    "description": "SUSE Okta identity management."
+                },
+                {
+                    "title": "Linode Cloud",
+                    "url": "https://cloud.linode.com/linodes",
+                    "description": "Linode cloud hosting platform."
+                },
+                {
+                    "title": "GitLab (brudnak)",
+                    "url": "https://gitlab.com/brudnak",
+                    "description": "User brudnak's GitLab profile."
+                }
+            ]
         }
     ]
 }

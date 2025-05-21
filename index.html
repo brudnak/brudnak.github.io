@@ -12,22 +12,19 @@
             /* Light Mode (Default) - Gemini Inspired */
             --bg-color: #ffffff;
             --text-color: #3c4043;
-            /* Google's darker gray for body text */
             --text-color-light: #5f6368;
-            /* Lighter gray for secondary text */
             --header-text-color: #202124;
-            /* Even darker for main headers */
             --link-color: #1a73e8;
-            /* Google's blue */
             --link-hover-color: #174ea6;
-            /* Darker Google blue */
             --border-color: #dadce0;
-            /* Google's border color */
             --category-bg-color: #f8f9fa;
-            /* Very light gray for category cards */
             --toggle-bg: #e8eaed;
             --toggle-fg: #5f6368;
-            --toggle-icon-fill: var(--text-color-light);
+            --toggle-text-color: var(--text-color-light);
+            /* Subtle glow for light mode - very light, almost white-blue */
+            --glow-color: #e3f2fd;
+            /* A very pale blue */
+
 
             /* Transition for smooth theme changes */
             --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -36,23 +33,19 @@
         html.dark {
             /* Dark Mode - Gemini Inspired */
             --bg-color: #202124;
-            /* Google's dark background */
             --text-color: #e8eaed;
-            /* Light gray for body text */
             --text-color-light: #9aa0a6;
-            /* Lighter gray for secondary text in dark mode */
             --header-text-color: #f1f3f4;
-            /* Almost white for main headers */
             --link-color: #8ab4f8;
-            /* Lighter blue for dark mode */
             --link-hover-color: #9ec5fc;
             --border-color: #5f6368;
-            /* Darker border color */
             --category-bg-color: #2d2e30;
-            /* Slightly lighter dark for category cards */
             --toggle-bg: #3c4043;
             --toggle-fg: #e8eaed;
-            --toggle-icon-fill: var(--text-color);
+            --toggle-text-color: var(--text-color);
+            /* Soft neo blue glow for dark mode */
+            --glow-color: #58a6ff;
+            /* A soft, vibrant blue */
         }
 
         body {
@@ -64,7 +57,6 @@
         }
 
         .bookmark-link {
-            /* Keeping class name generic for now, though data is "links" */
             color: var(--link-color);
             font-weight: 400;
             transition: color 0.2s ease;
@@ -76,7 +68,6 @@
         }
 
         .bookmark-category {
-            /* Keeping class name generic */
             border: 1px solid var(--border-color);
             background-color: var(--category-bg-color);
             transition: var(--theme-transition);
@@ -102,61 +93,54 @@
 
         /* Theme Toggle Styles */
         .theme-toggle {
-            /* Using Tailwind @apply for most, plus explicit min-width/height for robustness */
-            @apply fixed top-4 right-4 p-2 rounded-full cursor-pointer z-50 flex items-center justify-center;
-            min-width: 2.25rem;
-            /* Ensures button has a size (p-2 + icon width + p-2) */
-            min-height: 2.25rem;
+            @apply fixed top-4 right-4 p-2 rounded-md cursor-pointer z-50 flex items-center justify-center;
             background-color: var(--toggle-bg);
-            /* color: var(--toggle-fg); Tailwind text color utilities usually handle SVG's parent color if fill is 'currentColor' but we use explicit fill */
             border: 1px solid var(--border-color);
             transition: var(--theme-transition), background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+            font-size: 0.875rem;
+            /* Slightly smaller text */
+            color: var(--toggle-text-color);
+            padding-left: 0.75rem;
+            /* Adjust padding for text */
+            padding-right: 0.75rem;
+            line-height: 1.25rem;
         }
 
         .theme-toggle:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
-        .theme-toggle svg {
-            /* Explicitly setting width and height for SVGs */
-            width: 1.25rem;
-            /* Corresponds to Tailwind w-5 */
-            height: 1.25rem;
-            /* Corresponds to Tailwind h-5 */
-            fill: var(--toggle-icon-fill);
-            transition: fill 0.3s ease;
+        .theme-toggle-text {
+            /* Subtle glow effect */
+            text-shadow: 0 0 0.35rem var(--glow-color), 0 0 0.5rem var(--glow-color);
+            /* Slightly enhanced glow */
         }
 
-        .theme-toggle .moon-icon {
-            display: block;
-        }
-
-        /* Default in light mode */
-        .theme-toggle .sun-icon {
+        /* By default (light mode), show "dark theme" text */
+        .theme-toggle .light-theme-text-target {
             display: none;
         }
 
-        html.dark .theme-toggle .sun-icon {
-            display: block;
+        .theme-toggle .dark-theme-text-target {
+            display: inline;
         }
 
-        html.dark .theme-toggle .moon-icon {
+        /* In dark mode, show "light theme" text */
+        html.dark .theme-toggle .dark-theme-text-target {
             display: none;
+        }
+
+        html.dark .theme-toggle .light-theme-text-target {
+            display: inline;
         }
     </style>
 </head>
 
 <body class="antialiased">
 
-    <button id="theme-toggle-button" class="theme-toggle" title="Toggle dark mode">
-        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-        </svg>
-        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-            <path
-                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm0 13a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm8-5a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM3 10a1 1 0 01-1 1H1a1 1 0 110-2h1a1 1 0 011 1zm15-4.134a1 1 0 011.414 1.414l-1.414 1.414a1 1 0 01-1.414-1.414l1.414-1.414zM5.5 14.5a1 1 0 011.414 1.414l-1.414 1.414a1 1 0 01-1.414-1.414l1.414-1.414zM14.5 5.5a1 1 0 011.414 1.414l-1.414 1.414a1 1 0 01-1.414-1.414l1.414-1.414zM4.086 4.086a1 1 0 011.414-1.414l1.414 1.414a1 1 0 11-1.414 1.414L4.086 4.086z">
-            </path>
-        </svg>
+    <button id="theme-toggle-button" class="theme-toggle" title="Toggle theme">
+        <span class="dark-theme-text-target theme-toggle-text">dark theme</span>
+        <span class="light-theme-text-target theme-toggle-text">light theme</span>
     </button>
 
     <div class="container mx-auto px-4 py-10 sm:py-16 max-w-2xl">
@@ -178,13 +162,16 @@
         // Theme toggle logic
         const themeToggleButton = document.getElementById('theme-toggle-button');
         const htmlElement = document.documentElement;
+        // No need to query for individual text spans if CSS handles display
 
         // Function to apply theme based on preference or system setting
         function applyTheme(theme) {
             if (theme === 'dark') {
                 htmlElement.classList.add('dark');
+                themeToggleButton.title = "Switch to light theme"; // Update title
             } else {
                 htmlElement.classList.remove('dark');
+                themeToggleButton.title = "Switch to dark theme"; // Update title
             }
         }
 
@@ -193,7 +180,7 @@
         if (!currentTheme) {
             currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-        applyTheme(currentTheme);
+        applyTheme(currentTheme); // Apply initial theme
 
         themeToggleButton.addEventListener('click', () => {
             const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
@@ -210,7 +197,7 @@
             let messageArea = document.getElementById('message-area');
 
             try {
-                const response = await fetch('bookmarks.json'); // This should be 'links.json' if you rename the file
+                const response = await fetch('bookmarks.json'); // Ensure this is the correct filename
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -233,7 +220,7 @@
                         const bookmarkList = document.createElement('ul');
                         bookmarkList.className = 'space-y-2';
 
-                        if (category.bookmarks && category.bookmarks.length > 0) { // "bookmarks" key in JSON
+                        if (category.bookmarks && category.bookmarks.length > 0) {
                             category.bookmarks.forEach(bookmark => {
                                 const listItem = document.createElement('li');
                                 listItem.className = 'ml-2 py-1';
@@ -261,7 +248,7 @@
                             noBookmarksMessage.className = 'text-xs ml-2';
                             noBookmarksMessage.style.color = 'var(--text-color-light)';
                             noBookmarksMessage.style.transition = 'var(--theme-transition)';
-                            noBookmarksMessage.textContent = 'No links in this category yet.'; // Updated text
+                            noBookmarksMessage.textContent = 'No links in this category yet.';
                             bookmarkList.appendChild(noBookmarksMessage);
                         }
                         categoryDiv.appendChild(bookmarkList);
@@ -274,20 +261,20 @@
                         messageArea.id = 'message-area';
                         bookmarksSection.appendChild(messageArea);
                     }
-                    messageArea.textContent = 'No categories found in JSON file.'; // Updated text
+                    messageArea.textContent = 'No categories found in JSON file.';
                     messageArea.className = 'text-center my-10 text-sm';
                     messageArea.style.color = 'var(--text-color-light)';
                 }
 
             } catch (error) {
-                console.error('Error loading links:', error); // Updated text
+                console.error('Error loading links:', error);
                 messageArea = document.getElementById('message-area');
                 if (!messageArea) {
                     messageArea = document.createElement('div');
                     messageArea.id = 'message-area';
                     bookmarksSection.appendChild(messageArea);
                 }
-                messageArea.textContent = 'Could not load links. Make sure your JSON file exists and is valid.'; // Updated text
+                messageArea.textContent = 'Could not load links. Make sure your JSON file exists and is valid.';
                 messageArea.className = 'text-center text-red-500 my-10 text-sm';
             }
         }
