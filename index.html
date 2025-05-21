@@ -1,53 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bookmarks</title>
+    <title>links</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Light Mode (Default) - Gemini Inspired */
+            --bg-color: #ffffff;
+            --text-color: #3c4043;
+            /* Google's darker gray for body text */
+            --text-color-light: #5f6368;
+            /* Lighter gray for secondary text */
+            --header-text-color: #202124;
+            /* Even darker for main headers */
+            --link-color: #1a73e8;
+            /* Google's blue */
+            --link-hover-color: #174ea6;
+            /* Darker Google blue */
+            --border-color: #dadce0;
+            /* Google's border color */
+            --category-bg-color: #f8f9fa;
+            /* Very light gray for category cards */
+            --toggle-bg: #e8eaed;
+            --toggle-fg: #5f6368;
+            --toggle-icon-fill: var(--text-color-light);
+
+            /* Transition for smooth theme changes */
+            --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        html.dark {
+            /* Dark Mode - Gemini Inspired */
+            --bg-color: #202124;
+            /* Google's dark background */
+            --text-color: #e8eaed;
+            /* Light gray for body text */
+            --text-color-light: #9aa0a6;
+            /* Lighter gray for secondary text in dark mode */
+            --header-text-color: #f1f3f4;
+            /* Almost white for main headers */
+            --link-color: #8ab4f8;
+            /* Lighter blue for dark mode */
+            --link-hover-color: #9ec5fc;
+            --border-color: #5f6368;
+            /* Darker border color */
+            --category-bg-color: #2d2e30;
+            /* Slightly lighter dark for category cards */
+            --toggle-bg: #3c4043;
+            --toggle-fg: #e8eaed;
+            --toggle-icon-fill: var(--text-color);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #fff;
-            /* Plain white background */
-            color: #374151;
-            /* Slightly softer dark gray for text */
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-weight: 300;
-            /* Lighter font weight for a softer feel */
+            transition: var(--theme-transition);
         }
 
         .bookmark-link {
-            @apply text-blue-600 hover:text-blue-700 hover:underline;
+            /* Keeping class name generic for now, though data is "links" */
+            color: var(--link-color);
             font-weight: 400;
-            /* Normal weight for links to make them readable */
+            transition: color 0.2s ease;
+        }
+
+        .bookmark-link:hover {
+            color: var(--link-hover-color);
+            text-decoration: underline;
         }
 
         .bookmark-category {
-            border: 1px solid #e5e7eb;
-            /* Very light border for categories */
+            /* Keeping class name generic */
+            border: 1px solid var(--border-color);
+            background-color: var(--category-bg-color);
+            transition: var(--theme-transition);
         }
 
-        /* Loading and error message styling */
         #message-area {
-            @apply text-center text-gray-400 my-10 text-sm;
+            @apply text-center my-10 text-sm;
+            color: var(--text-color-light);
+            transition: var(--theme-transition);
         }
 
         .header-title {
             letter-spacing: 0.2em;
-            /* Spacing for "b o o k m a r k s" */
             font-weight: 400;
-            /* Slightly bolder for the main title */
+            color: var(--header-text-color);
+            transition: var(--theme-transition);
+        }
+
+        .footer-text {
+            color: var(--text-color-light);
+            transition: var(--theme-transition);
+        }
+
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            /* Using Tailwind @apply for most, plus explicit min-width/height for robustness */
+            @apply fixed top-4 right-4 p-2 rounded-full cursor-pointer z-50 flex items-center justify-center;
+            min-width: 2.25rem;
+            /* Ensures button has a size (p-2 + icon width + p-2) */
+            min-height: 2.25rem;
+            background-color: var(--toggle-bg);
+            /* color: var(--toggle-fg); Tailwind text color utilities usually handle SVG's parent color if fill is 'currentColor' but we use explicit fill */
+            border: 1px solid var(--border-color);
+            transition: var(--theme-transition), background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle svg {
+            /* Explicitly setting width and height for SVGs */
+            width: 1.25rem;
+            /* Corresponds to Tailwind w-5 */
+            height: 1.25rem;
+            /* Corresponds to Tailwind h-5 */
+            fill: var(--toggle-icon-fill);
+            transition: fill 0.3s ease;
+        }
+
+        .theme-toggle .moon-icon {
+            display: block;
+        }
+
+        /* Default in light mode */
+        .theme-toggle .sun-icon {
+            display: none;
+        }
+
+        html.dark .theme-toggle .sun-icon {
+            display: block;
+        }
+
+        html.dark .theme-toggle .moon-icon {
+            display: none;
         }
     </style>
 </head>
 
 <body class="antialiased">
 
+    <button id="theme-toggle-button" class="theme-toggle" title="Toggle dark mode">
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path
+                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm0 13a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm8-5a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM3 10a1 1 0 01-1 1H1a1 1 0 110-2h1a1 1 0 011 1zm15-4.134a1 1 0 011.414 1.414l-1.414 1.414a1 1 0 01-1.414-1.414l1.414-1.414zM5.5 14.5a1 1 0 011.414 1.414l-1.414 1.414a1 1 0 01-1.414-1.414l1.414-1.414zM14.5 5.5a1 1 0 011.414 1.414l-1.414 1.414a1 1 0 01-1.414-1.414l1.414-1.414zM4.086 4.086a1 1 0 011.414-1.414l1.414 1.414a1 1 0 11-1.414 1.414L4.086 4.086z">
+            </path>
+        </svg>
+    </button>
+
     <div class="container mx-auto px-4 py-10 sm:py-16 max-w-2xl">
+
         <header class="mb-10 sm:mb-14 text-center">
-            <h1 class="text-2xl sm:text-3xl font-medium text-gray-700 header-title">b o o k m a r k s</h1>
+            <h1 class="text-2xl sm:text-3xl font-medium header-title">l i n k s</h1>
         </header>
 
         <section id="bookmarks-section">
@@ -55,55 +170,74 @@
         </section>
 
         <footer class="text-center mt-16 py-6">
-            <p class="text-xs text-gray-400">&copy; <span id="currentYear"></span></p>
+            <p class="text-xs footer-text">&copy; <span id="currentYear"></span></p>
         </footer>
-
     </div>
 
     <script>
+        // Theme toggle logic
+        const themeToggleButton = document.getElementById('theme-toggle-button');
+        const htmlElement = document.documentElement;
+
+        // Function to apply theme based on preference or system setting
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+        }
+
+        // Check for saved theme in localStorage or use system preference
+        let currentTheme = localStorage.getItem('theme');
+        if (!currentTheme) {
+            currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        applyTheme(currentTheme);
+
+        themeToggleButton.addEventListener('click', () => {
+            const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Function to fetch and display bookmarks
+        // Function to fetch and display links (formerly bookmarks)
         async function loadAndDisplayBookmarks() {
             const bookmarksSection = document.getElementById('bookmarks-section');
-            let messageArea = document.getElementById('message-area'); // Use let to reassign if needed
+            let messageArea = document.getElementById('message-area');
 
             try {
-                // Attempt to fetch the bookmarks.json file
-                const response = await fetch('bookmarks.json');
+                const response = await fetch('bookmarks.json'); // This should be 'links.json' if you rename the file
                 if (!response.ok) {
-                    // Handle HTTP errors like 404
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
 
-                // Clear loading message
                 if (messageArea) messageArea.remove();
 
                 if (data && data.categories && data.categories.length > 0) {
                     data.categories.forEach(category => {
-                        // Create category container
                         const categoryDiv = document.createElement('div');
                         categoryDiv.className = 'mb-6 p-4 rounded-md bookmark-category';
 
-                        // Create category title
                         const categoryTitle = document.createElement('h2');
-                        categoryTitle.className = 'text-lg font-medium text-gray-600 mb-3';
+                        categoryTitle.className = 'text-lg font-semibold mb-3';
+                        categoryTitle.style.color = 'var(--header-text-color)';
+                        categoryTitle.style.transition = 'var(--theme-transition)';
                         categoryTitle.textContent = category.name;
                         categoryDiv.appendChild(categoryTitle);
 
-                        // Create list for bookmarks
                         const bookmarkList = document.createElement('ul');
                         bookmarkList.className = 'space-y-2';
 
-                        if (category.bookmarks && category.bookmarks.length > 0) {
+                        if (category.bookmarks && category.bookmarks.length > 0) { // "bookmarks" key in JSON
                             category.bookmarks.forEach(bookmark => {
-                                // Create list item
                                 const listItem = document.createElement('li');
                                 listItem.className = 'ml-2 py-1';
 
-                                // Create link
                                 const link = document.createElement('a');
                                 link.href = bookmark.url;
                                 link.textContent = bookmark.title;
@@ -112,10 +246,11 @@
                                 link.className = 'bookmark-link text-sm';
                                 listItem.appendChild(link);
 
-                                // Create description (optional and minimal)
                                 if (bookmark.description) {
                                     const description = document.createElement('p');
-                                    description.className = 'text-xs text-gray-400 mt-0.5 ml-px';
+                                    description.className = 'text-xs mt-0.5 ml-px';
+                                    description.style.color = 'var(--text-color-light)';
+                                    description.style.transition = 'var(--theme-transition)';
                                     description.textContent = bookmark.description;
                                     listItem.appendChild(description);
                                 }
@@ -123,40 +258,40 @@
                             });
                         } else {
                             const noBookmarksMessage = document.createElement('p');
-                            noBookmarksMessage.className = 'text-xs text-gray-400 ml-2';
-                            noBookmarksMessage.textContent = 'No bookmarks here yet.';
+                            noBookmarksMessage.className = 'text-xs ml-2';
+                            noBookmarksMessage.style.color = 'var(--text-color-light)';
+                            noBookmarksMessage.style.transition = 'var(--theme-transition)';
+                            noBookmarksMessage.textContent = 'No links in this category yet.'; // Updated text
                             bookmarkList.appendChild(noBookmarksMessage);
                         }
                         categoryDiv.appendChild(bookmarkList);
                         bookmarksSection.appendChild(categoryDiv);
                     });
                 } else {
-                    // Ensure message area is available if needed for "no categories" message
-                    messageArea = document.getElementById('message-area'); // Re-check if it was removed
+                    messageArea = document.getElementById('message-area');
                     if (!messageArea) {
                         messageArea = document.createElement('div');
                         messageArea.id = 'message-area';
                         bookmarksSection.appendChild(messageArea);
                     }
-                    messageArea.textContent = 'No categories found in bookmarks.json.';
-                    messageArea.className = 'text-center text-gray-400 my-10 text-sm';
+                    messageArea.textContent = 'No categories found in JSON file.'; // Updated text
+                    messageArea.className = 'text-center my-10 text-sm';
+                    messageArea.style.color = 'var(--text-color-light)';
                 }
 
             } catch (error) {
-                console.error('Error loading bookmarks:', error);
-                // Ensure message area is available for error message
-                messageArea = document.getElementById('message-area'); // Re-check if it was removed
+                console.error('Error loading links:', error); // Updated text
+                messageArea = document.getElementById('message-area');
                 if (!messageArea) {
                     messageArea = document.createElement('div');
                     messageArea.id = 'message-area';
                     bookmarksSection.appendChild(messageArea);
                 }
-                messageArea.textContent = 'Could not load bookmarks. Make sure bookmarks.json exists and is valid.';
-                messageArea.className = 'text-center text-red-500 my-10 text-sm'; // Style as error
+                messageArea.textContent = 'Could not load links. Make sure your JSON file exists and is valid.'; // Updated text
+                messageArea.className = 'text-center text-red-500 my-10 text-sm';
             }
         }
 
-        // Load bookmarks when the page content is loaded
         document.addEventListener('DOMContentLoaded', loadAndDisplayBookmarks);
     </script>
 
