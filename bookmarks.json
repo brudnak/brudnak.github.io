@@ -1,0 +1,58 @@
+{
+    "categories": [
+        {
+            "name": "Core Tools",
+            "bookmarks": [
+                {
+                    "title": "Search Engine",
+                    "url": "https://www.google.com",
+                    "description": "Primary search tool."
+                },
+                {
+                    "title": "Code Repository",
+                    "url": "https://github.com",
+                    "description": "For all my projects."
+                },
+                {
+                    "title": "Cloud Storage",
+                    "url": "https://www.dropbox.com",
+                    "description": "File synchronization."
+                }
+            ]
+        },
+        {
+            "name": "Development",
+            "bookmarks": [
+                {
+                    "title": "MDN Web Docs",
+                    "url": "https://developer.mozilla.org/",
+                    "description": "Web development resources."
+                },
+                {
+                    "title": "Stack Overflow",
+                    "url": "https://stackoverflow.com",
+                    "description": "Q&A for programmers."
+                }
+            ]
+        },
+        {
+            "name": "Reading List",
+            "bookmarks": [
+                {
+                    "title": "TechCrunch",
+                    "url": "https://techcrunch.com",
+                    "description": "Startup and technology news."
+                },
+                {
+                    "title": "Medium",
+                    "url": "https://medium.com",
+                    "description": "Articles and stories."
+                }
+            ]
+        },
+        {
+            "name": "Empty Category Example",
+            "bookmarks": []
+        }
+    ]
+}
