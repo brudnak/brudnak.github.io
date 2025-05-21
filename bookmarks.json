@@ -89,6 +89,11 @@
                     "description": "Google's Gemini AI."
                 },
                 {
+                    "title": "Mistral AI Chat",
+                    "url": "https://chat.mistral.ai/chat",
+                    "description": "Mistral AI's chat interface."
+                },
+                {
                     "title": "ChatGPT Codex",
                     "url": "https://chatgpt.com/codex?tab=all",
                     "description": "ChatGPT for code generation and understanding."

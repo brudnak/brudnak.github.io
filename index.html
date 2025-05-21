@@ -9,56 +9,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Light Mode (Default) - Gemini Inspired */
+            /* Light Mode (Super Simple Minimalist) */
             --bg-color: #ffffff;
-            --text-color: #3c4043;
-            --text-color-light: #5f6368;
-            --header-text-color: #202124;
-            --link-color: #1a73e8;
-            --link-hover-color: #174ea6;
-            --border-color: #dadce0;
-            --category-bg-color: #f8f9fa;
-            --toggle-bg: #e8eaed;
-            --toggle-fg: #5f6368;
-            --toggle-text-color: var(--text-color-light);
-            /* Subtle glow for light mode - very light, almost white-blue */
-            --glow-color: #e3f2fd;
-            /* A very pale blue */
+            --text-color: #222222;
+            /* Dark gray, almost black */
+            --text-color-light: #555555;
+            /* Medium gray */
+            --header-text-color: #000000;
+            --link-color: #000000;
+            /* Black links */
+            --link-hover-color: #333333;
+            --border-color: #eeeeee;
+            /* Very light gray */
+            --category-bg-color: #f9f9f9;
+            /* Almost white */
 
+            /* Theme Toggle */
+            --toggle-bg: #f0f0f0;
+            --toggle-text-color: var(--text-color);
 
-            /* Transition for smooth theme changes */
-            --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            /* Filter Bar */
+            --filter-text-color: var(--text-color-light);
+            --filter-active-text-color: var(--text-color);
+            --filter-active-border-color: var(--link-color);
+
+            --theme-transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
 
         html.dark {
-            /* Dark Mode - Gemini Inspired */
-            --bg-color: #202124;
-            --text-color: #e8eaed;
-            --text-color-light: #9aa0a6;
-            --header-text-color: #f1f3f4;
-            --link-color: #8ab4f8;
-            --link-hover-color: #9ec5fc;
-            --border-color: #5f6368;
-            --category-bg-color: #2d2e30;
-            --toggle-bg: #3c4043;
-            --toggle-fg: #e8eaed;
+            /* Dark Mode (Super Simple Minimalist) */
+            --bg-color: #111111;
+            /* Very dark gray / off-black */
+            --text-color: #dddddd;
+            /* Light gray */
+            --text-color-light: #aaaaaa;
+            --header-text-color: #ffffff;
+            --link-color: #ffffff;
+            /* White links */
+            --link-hover-color: #cccccc;
+            --border-color: #333333;
+            /* Dark gray */
+            --category-bg-color: #191919;
+            /* Slightly lighter than bg */
+
+            /* Theme Toggle */
+            --toggle-bg: #222222;
             --toggle-text-color: var(--text-color);
-            /* Soft neo blue glow for dark mode */
-            --glow-color: #58a6ff;
-            /* A soft, vibrant blue */
+
+            /* Filter Bar */
+            --filter-text-color: var(--text-color-light);
+            --filter-active-text-color: var(--text-color);
+            --filter-active-border-color: var(--link-color);
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-weight: 300;
+            font-weight: 400;
             transition: var(--theme-transition);
+            line-height: 1.6;
         }
 
         .bookmark-link {
             color: var(--link-color);
-            font-weight: 400;
+            font-weight: 500;
             transition: color 0.2s ease;
         }
 
@@ -67,11 +82,29 @@
             text-decoration: underline;
         }
 
-        .bookmark-category {
-            border: 1px solid var(--border-color);
+        .bookmark-category-container {
             background-color: var(--category-bg-color);
             transition: var(--theme-transition);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 0;
+            /* No rounding for a sharper look */
+            box-shadow: none;
+            /* No shadow */
+            margin-bottom: 1rem;
+            /* Added space between cards */
         }
+
+        .bookmark-category-container:not(:first-child) {
+            border-top: none;
+            /* Avoid double borders when stacked */
+        }
+
+        .bookmark-category-container:last-of-type {
+            margin-bottom: 0;
+        }
+
 
         #message-area {
             @apply text-center my-10 text-sm;
@@ -81,42 +114,45 @@
 
         .header-title {
             letter-spacing: 0.2em;
-            font-weight: 400;
+            font-weight: 500;
+            /* Medium */
             color: var(--header-text-color);
             transition: var(--theme-transition);
+            text-shadow: none;
+            padding-top: 1.5rem;
+            padding-bottom: 1rem;
         }
 
         .footer-text {
             color: var(--text-color-light);
             transition: var(--theme-transition);
+            font-size: 0.75rem;
         }
 
-        /* Theme Toggle Styles */
+        /* Theme Toggle Styles (Text-based) */
         .theme-toggle {
-            @apply fixed top-4 right-4 p-2 rounded-md cursor-pointer z-50 flex items-center justify-center;
+            @apply fixed top-4 right-4 px-3 py-1.5 rounded-md cursor-pointer z-50 flex items-center justify-center;
             background-color: var(--toggle-bg);
             border: 1px solid var(--border-color);
-            transition: var(--theme-transition), background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-            font-size: 0.875rem;
-            /* Slightly smaller text */
+            transition: var(--theme-transition), background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+            font-size: 0.75rem;
+            /* text-xs */
             color: var(--toggle-text-color);
-            padding-left: 0.75rem;
-            /* Adjust padding for text */
-            padding-right: 0.75rem;
-            line-height: 1.25rem;
+            min-width: 60px;
+            text-align: center;
+            box-shadow: none;
         }
 
         .theme-toggle:hover {
-            transform: scale(1.05);
+            background-color: var(--category-bg-color);
+            /* Subtle hover */
         }
 
         .theme-toggle-text {
-            /* Subtle glow effect */
-            text-shadow: 0 0 0.35rem var(--glow-color), 0 0 0.5rem var(--glow-color);
-            /* Slightly enhanced glow */
+            font-weight: 500;
+            text-shadow: none;
         }
 
-        /* By default (light mode), show "dark theme" text */
         .theme-toggle .light-theme-text-target {
             display: none;
         }
@@ -125,13 +161,67 @@
             display: inline;
         }
 
-        /* In dark mode, show "light theme" text */
         html.dark .theme-toggle .dark-theme-text-target {
             display: none;
         }
 
         html.dark .theme-toggle .light-theme-text-target {
             display: inline;
+        }
+
+        /* Filter Bar Styles */
+        #filter-bar {
+            @apply flex overflow-x-auto whitespace-nowrap py-2 mb-8 justify-center;
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        #filter-bar::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
+        }
+
+        .filter-item {
+            /* Now styles <button> elements */
+            @apply px-3 py-1 text-sm cursor-pointer;
+            background: none;
+            /* Reset default button background */
+            border: none;
+            /* Reset default button border */
+            padding: 0.25rem 0.75rem;
+            /* Tailwind py-1 px-3 */
+            margin: 0;
+            /* Reset default button margin */
+            font-family: inherit;
+            /* Inherit font from body */
+            color: var(--filter-text-color);
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            margin-right: 0.5rem;
+            outline: none;
+            /* Remove focus outline if not desired, or style it */
+        }
+
+        .filter-item:focus-visible {
+            /* Style for keyboard navigation */
+            outline: 2px solid var(--link-color);
+            outline-offset: 2px;
+        }
+
+        .filter-item:last-child {
+            margin-right: 0;
+        }
+
+        .filter-item:hover {
+            color: var(--filter-active-text-color);
+        }
+
+        .filter-item.active {
+            color: var(--filter-active-text-color);
+            border-bottom-color: var(--filter-active-border-color);
+            font-weight: 500;
         }
     </style>
 
@@ -144,15 +234,18 @@
 <body class="antialiased">
 
     <button id="theme-toggle-button" class="theme-toggle" title="Toggle theme">
-        <span class="dark-theme-text-target theme-toggle-text">dark theme</span>
-        <span class="light-theme-text-target theme-toggle-text">light theme</span>
+        <span class="dark-theme-text-target theme-toggle-text">dark</span>
+        <span class="light-theme-text-target theme-toggle-text">light</span>
     </button>
 
     <div class="container mx-auto px-4 py-10 sm:py-16 max-w-2xl">
 
-        <header class="mb-10 sm:mb-14 text-center">
+        <header class="mb-4 sm:mb-6 text-center">
             <h1 class="text-2xl sm:text-3xl font-medium header-title">l i n k s</h1>
         </header>
+
+        <div id="filter-bar">
+        </div>
 
         <section id="bookmarks-section">
             <div id="message-area">Loading...</div>
@@ -167,25 +260,22 @@
         // Theme toggle logic
         const themeToggleButton = document.getElementById('theme-toggle-button');
         const htmlElement = document.documentElement;
-        // No need to query for individual text spans if CSS handles display
 
-        // Function to apply theme based on preference or system setting
         function applyTheme(theme) {
             if (theme === 'dark') {
                 htmlElement.classList.add('dark');
-                themeToggleButton.title = "Switch to light theme"; // Update title
+                themeToggleButton.title = "Switch to light theme";
             } else {
                 htmlElement.classList.remove('dark');
-                themeToggleButton.title = "Switch to dark theme"; // Update title
+                themeToggleButton.title = "Switch to dark theme";
             }
         }
 
-        // Check for saved theme in localStorage or use system preference
         let currentTheme = localStorage.getItem('theme');
         if (!currentTheme) {
             currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-        applyTheme(currentTheme); // Apply initial theme
+        applyTheme(currentTheme);
 
         themeToggleButton.addEventListener('click', () => {
             const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
@@ -196,13 +286,134 @@
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Function to fetch and display links (formerly bookmarks)
-        async function loadAndDisplayBookmarks() {
+        let allCategoriesData = [];
+        let currentActiveFilter = null;
+
+        function displayBookmarks(filterCategoryName = null) {
+            const bookmarksSection = document.getElementById('bookmarks-section');
+            bookmarksSection.innerHTML = '';
+
+            const categoriesToDisplay = filterCategoryName
+                ? allCategoriesData.filter(cat => cat.name === filterCategoryName)
+                : allCategoriesData;
+
+            if (categoriesToDisplay.length === 0 && filterCategoryName) {
+                bookmarksSection.innerHTML = `<div id="message-area">No links found for "${filterCategoryName}".</div>`;
+                return;
+            }
+            if (categoriesToDisplay.length === 0 && !filterCategoryName && allCategoriesData.length > 0) {
+                currentActiveFilter = null;
+                updateActiveFilterItemStates();
+                displayBookmarks();
+                return;
+            }
+            if (categoriesToDisplay.length === 0 && allCategoriesData.length === 0) {
+                if (!document.getElementById('message-area')) {
+                    bookmarksSection.innerHTML = `<div id="message-area">No links to display.</div>`;
+                }
+                return;
+            }
+
+            categoriesToDisplay.forEach((category) => { // Removed index as it's not used here
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'p-6 bookmark-category-container';
+                categoryDiv.setAttribute('data-category-name', category.name);
+
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.className = 'text-lg font-medium mb-4';
+                categoryTitle.style.color = 'var(--header-text-color)';
+                categoryTitle.style.transition = 'var(--theme-transition)';
+                categoryTitle.textContent = category.name;
+                categoryDiv.appendChild(categoryTitle);
+
+                const bookmarkList = document.createElement('ul');
+                bookmarkList.className = 'space-y-2.5';
+
+                if (category.bookmarks && category.bookmarks.length > 0) {
+                    category.bookmarks.forEach(bookmark => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'ml-1 py-1';
+
+                        const link = document.createElement('a');
+                        link.href = bookmark.url;
+                        link.textContent = bookmark.title;
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                        link.className = 'bookmark-link text-sm';
+                        listItem.appendChild(link);
+
+                        if (bookmark.description) {
+                            const description = document.createElement('p');
+                            description.className = 'text-xs mt-0.5 ml-px';
+                            description.style.color = 'var(--text-color-light)';
+                            description.style.transition = 'var(--theme-transition)';
+                            description.textContent = bookmark.description;
+                            listItem.appendChild(description);
+                        }
+                        bookmarkList.appendChild(listItem);
+                    });
+                } else {
+                    const noBookmarksMessage = document.createElement('p');
+                    noBookmarksMessage.className = 'text-sm ml-1';
+                    noBookmarksMessage.style.color = 'var(--text-color-light)';
+                    noBookmarksMessage.style.transition = 'var(--theme-transition)';
+                    noBookmarksMessage.textContent = 'No links in this category yet.';
+                    bookmarkList.appendChild(noBookmarksMessage);
+                }
+                categoryDiv.appendChild(bookmarkList);
+                bookmarksSection.appendChild(categoryDiv);
+            });
+        }
+
+        function setupFilterBar() {
+            const filterBar = document.getElementById('filter-bar');
+            filterBar.innerHTML = '';
+
+            const showAllItem = document.createElement('button'); // Changed to button
+            showAllItem.textContent = 'Show All';
+            showAllItem.className = 'filter-item';
+            showAllItem.addEventListener('click', () => {
+                if (currentActiveFilter === null) return;
+                currentActiveFilter = null;
+                displayBookmarks();
+                updateActiveFilterItemStates();
+            });
+            filterBar.appendChild(showAllItem);
+
+            allCategoriesData.forEach(category => {
+                const filterItem = document.createElement('button'); // Changed to button
+                filterItem.textContent = category.name;
+                filterItem.className = 'filter-item';
+                filterItem.setAttribute('data-filter-category', category.name);
+                filterItem.addEventListener('click', () => {
+                    if (currentActiveFilter === category.name) return;
+                    currentActiveFilter = category.name;
+                    displayBookmarks(category.name);
+                    updateActiveFilterItemStates();
+                });
+                filterBar.appendChild(filterItem);
+            });
+            updateActiveFilterItemStates();
+        }
+
+        function updateActiveFilterItemStates() {
+            const items = document.querySelectorAll('#filter-bar .filter-item');
+            items.forEach(item => {
+                const filterName = item.getAttribute('data-filter-category');
+                if ((currentActiveFilter === null && item.textContent === 'Show All') || (filterName && filterName === currentActiveFilter)) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        async function initializePage() {
             const bookmarksSection = document.getElementById('bookmarks-section');
             let messageArea = document.getElementById('message-area');
 
             try {
-                const response = await fetch('bookmarks.json'); // Ensure this is the correct filename
+                const response = await fetch('bookmarks.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -210,81 +421,38 @@
 
                 if (messageArea) messageArea.remove();
 
-                if (data && data.categories && data.categories.length > 0) {
-                    data.categories.forEach(category => {
-                        const categoryDiv = document.createElement('div');
-                        categoryDiv.className = 'mb-6 p-4 rounded-md bookmark-category';
+                allCategoriesData = data.categories || [];
 
-                        const categoryTitle = document.createElement('h2');
-                        categoryTitle.className = 'text-lg font-semibold mb-3';
-                        categoryTitle.style.color = 'var(--header-text-color)';
-                        categoryTitle.style.transition = 'var(--theme-transition)';
-                        categoryTitle.textContent = category.name;
-                        categoryDiv.appendChild(categoryTitle);
-
-                        const bookmarkList = document.createElement('ul');
-                        bookmarkList.className = 'space-y-2';
-
-                        if (category.bookmarks && category.bookmarks.length > 0) {
-                            category.bookmarks.forEach(bookmark => {
-                                const listItem = document.createElement('li');
-                                listItem.className = 'ml-2 py-1';
-
-                                const link = document.createElement('a');
-                                link.href = bookmark.url;
-                                link.textContent = bookmark.title;
-                                link.target = '_blank';
-                                link.rel = 'noopener noreferrer';
-                                link.className = 'bookmark-link text-sm';
-                                listItem.appendChild(link);
-
-                                if (bookmark.description) {
-                                    const description = document.createElement('p');
-                                    description.className = 'text-xs mt-0.5 ml-px';
-                                    description.style.color = 'var(--text-color-light)';
-                                    description.style.transition = 'var(--theme-transition)';
-                                    description.textContent = bookmark.description;
-                                    listItem.appendChild(description);
-                                }
-                                bookmarkList.appendChild(listItem);
-                            });
-                        } else {
-                            const noBookmarksMessage = document.createElement('p');
-                            noBookmarksMessage.className = 'text-xs ml-2';
-                            noBookmarksMessage.style.color = 'var(--text-color-light)';
-                            noBookmarksMessage.style.transition = 'var(--theme-transition)';
-                            noBookmarksMessage.textContent = 'No links in this category yet.';
-                            bookmarkList.appendChild(noBookmarksMessage);
-                        }
-                        categoryDiv.appendChild(bookmarkList);
-                        bookmarksSection.appendChild(categoryDiv);
-                    });
+                if (allCategoriesData.length > 0) {
+                    setupFilterBar();
+                    displayBookmarks();
                 } else {
-                    messageArea = document.getElementById('message-area');
-                    if (!messageArea) {
-                        messageArea = document.createElement('div');
-                        messageArea.id = 'message-area';
-                        bookmarksSection.appendChild(messageArea);
-                    }
-                    messageArea.textContent = 'No categories found in JSON file.';
-                    messageArea.className = 'text-center my-10 text-sm';
-                    messageArea.style.color = 'var(--text-color-light)';
+                    document.getElementById('filter-bar').innerHTML = '';
+                    bookmarksSection.innerHTML = '<div id="message-area">No categories found in JSON file.</div>';
                 }
 
             } catch (error) {
                 console.error('Error loading links:', error);
-                messageArea = document.getElementById('message-area');
-                if (!messageArea) {
-                    messageArea = document.createElement('div');
-                    messageArea.id = 'message-area';
-                    bookmarksSection.appendChild(messageArea);
+                document.getElementById('filter-bar').innerHTML = '';
+                let existingMessageArea = document.getElementById('message-area');
+                if (existingMessageArea) {
+                    existingMessageArea.textContent = 'Could not load links. Make sure your JSON file exists and is valid.';
+                    existingMessageArea.className = 'text-center text-red-500 my-10 text-sm';
+                } else {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.id = 'message-area';
+                    errorDiv.textContent = 'Could not load links. Make sure your JSON file exists and is valid.';
+                    errorDiv.className = 'text-center text-red-500 my-10 text-sm';
+                    if (bookmarksSection) {
+                        bookmarksSection.appendChild(errorDiv);
+                    } else {
+                        document.body.appendChild(errorDiv);
+                    }
                 }
-                messageArea.textContent = 'Could not load links. Make sure your JSON file exists and is valid.';
-                messageArea.className = 'text-center text-red-500 my-10 text-sm';
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadAndDisplayBookmarks);
+        document.addEventListener('DOMContentLoaded', initializePage);
     </script>
 
 </body>
